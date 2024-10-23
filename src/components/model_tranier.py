@@ -14,7 +14,7 @@ import pandas as pd # type: ignore
 import matplotlib.pyplot as plt  # type: ignore
 import numpy as np
 
-from ..exception import CustomException
+from src.exception import CustomException
 from src.logger import logging
 from src.utils import save_object, evaluate_models, model_metrics, print_evaluated_results
 
