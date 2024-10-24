@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split  # For splitting data into 
 # Import components from the project
 from src.components.data_transformation import DataTransformation, DataTransformationConfig  # Data transformation components
 from src.components.model_tranier import ModelTrainer, ModelTrainerConfig  # Model training components
-from src.exception import CustomException  # Custom exception handling
+from src.exception import CustomException  # Custom exception handlingn
 from src.logger import logging  # Logging utility
 
 import sys

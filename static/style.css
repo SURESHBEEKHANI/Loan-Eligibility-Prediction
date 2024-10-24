@@ -1,0 +1,148 @@
+/* Base styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e6f0fa; /* Soft light blue for a bright and engaging background */
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container styles */
+.container {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 30px;
+    background-color: #fffdfde7;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-top: 8px solid #5e1e18; /* A bold coral color to give a vibrant accent */
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.container:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Logo styles */
+.container img {
+    display: block;
+    margin: 0 auto 20px;
+    width: 180px;
+    height: auto;
+}
+
+/* Heading styles */
+h1 {
+    text-align: center;
+    font-size: 28px;
+    color:#5e1e18; /* Matching the coral accent color */
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+/* Form label styles */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+}
+
+/* Input and select fields */
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    color: #333;
+    background-color: #f9fafb; /* Soft light gray background for inputs */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+}
+
+input:focus, select:focus {
+    border-color:#5e1e18; /* Coral color on focus for consistency */
+    box-shadow: 0 0 8px rgba(255, 111, 97, 0.25);
+}
+
+/* Button styles */
+button {
+    width: 100%;
+    padding: 14px;
+    background-color: #5e1e18; /* Coral background for buttons */
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color:#5e1e18; /* Slightly darker coral on hover */
+}
+
+/* Button Secondary style (optional) */
+button.secondary {
+    background-color: #28a745; /* Secondary green button */
+}
+
+button.secondary:hover {
+    background-color: #218838;
+}
+
+/* Responsive form adjustments */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    input, select, button {
+        font-size: 15px;
+    }
+}
+
+/* Result message styles */
+.result {
+    margin-top: 25px;
+    padding: 15px;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.result.success {
+    background-color: #d4edda;
+    color: #155724;
+    border-left: 5px solid #28a745;
+}
+
+.result.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-left: 5px solid #dc3545;
+}
+
+/* Colorful form section headers */
+.form-section-header {
+    font-size: 20px;
+    color: #495057;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #dee2e6;
+}

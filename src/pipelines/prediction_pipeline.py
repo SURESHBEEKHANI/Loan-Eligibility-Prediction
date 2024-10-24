@@ -4,110 +4,82 @@ from src.exception import CustomException
 from src.logger import logging
 from src.utils import load_object
 
+import pandas as pd
+
 class PredictPipeline:
     def __init__(self):
-        pass  # Initialize the PredictPipeline class
+        """Initialize the PredictPipeline class."""
+        pass
 
     def predict(self, features):
         """
         Predict the target variable using the pre-trained model.
 
-        Parameters:
-            features (DataFrame): DataFrame containing input features for prediction.
+        Args:
+            features (pd.DataFrame): Input features for prediction.
 
         Returns:
-            pred: Prediction results from the model.
+            np.ndarray: Model prediction results.
         """
         try:
-            # Load preprocessor and model from the specified paths
+            # Load the preprocessor and model from the artifact paths
             preprocessor_path = 'artifacts/preprocessor.pkl'
             model_path = 'artifacts/model.pkl'
             preprocessor = load_object(file_path=preprocessor_path)
             model = load_object(file_path=model_path)
 
-            # Scale the input features using the loaded preprocessor
+            # Apply preprocessing to the input features
             data_scaled = preprocessor.transform(features)
 
-            # Make predictions using the scaled data
-            pred = model.predict(data_scaled)
-            return pred
+            # Make predictions with the model
+            predictions = model.predict(data_scaled)
+            return predictions
         except Exception as e:
-            # Log the exception and raise a custom exception
-            logging.info('Exception occurred in prediction pipeline')
+            logging.error('Error occurred during prediction', exc_info=True)
             raise CustomException(e, sys)
 
 class CustomData:
-    def __init__(self,
-                 age: int,
-                 sex: str,
-                 chest_pain_type: str,
-                 resting_bp: float,
-                 cholesterol: float,
-                 fasting_bs: int,
-                 resting_ecg: str,  # Added resting ECG
-                 max_hr: float,
-                 exercise_angina: str,
-                 oldpeak: float,
-                 st_slope: str):
-        """
-        Initialize custom data for prediction.
-
-        Parameters:
-            age (float): Age of the patient.
-            sex (str): Gender of the patient (M/F).
-            chest_pain_type (str): Type of chest pain (ATA/NAP/ASY).
-            resting_bp (float): Resting blood pressure.
-            cholesterol (float): Cholesterol level.
-            fasting_bs (int): Fasting blood sugar level (0 or 1).
-            resting_ecg (str): Resting ECG results (Normal/ST).
-            max_hr (float): Maximum heart rate achieved.
-            oldpeak (float): ST depression induced by exercise relative to rest.
-            exercise_angina (str): Whether the patient experiences angina during exercise (Y/N).
-            st_slope (str): The slope of the ST segment (Up/Flat/Down).
-        """
-        if age is None or resting_bp is None or cholesterol is None or max_hr is None or oldpeak is None:
-            raise ValueError("Numeric fields cannot be None")
-
-        self.age = age
-        self.sex = sex
-        self.chest_pain_type = chest_pain_type
-        self.resting_bp = resting_bp
-        self.cholesterol = cholesterol
-        self.fasting_bs = fasting_bs
-        self.resting_ecg = resting_ecg
-        self.max_hr = max_hr
-        self.oldpeak = oldpeak
-        self.exercise_angina = exercise_angina
-        self.st_slope = st_slope
+    def __init__(self, self_employed, education, no_of_dependents, income_annum, loan_amount, loan_term, cibil_score, residential_assets_value, commercial_assets_value, luxury_assets_value, bank_asset_value):
+        self.self_employed = self_employed
+        self.education = education
+        self.no_of_dependents = no_of_dependents
+        self.income_annum = income_annum
+        self.loan_amount = loan_amount
+        self.loan_term = loan_term
+        self.cibil_score = cibil_score
+        self.residential_assets_value = residential_assets_value
+        self.commercial_assets_value = commercial_assets_value
+        self.luxury_assets_value = luxury_assets_value
+        self.bank_asset_value = bank_asset_value
 
     def get_data_as_dataframe(self):
         """
-        Convert the input data into a pandas DataFrame.
-
+        Converts the input data into a pandas DataFrame.
+        
         Returns:
-            DataFrame: DataFrame containing the input features.
+            pd.DataFrame: A DataFrame representing the input features.
         """
         try:
-            # Create a dictionary with the input data
-            custom_data_input_dict = {
-                'Age': [self.age],
-                'Sex': [self.sex],
-                'ChestPainType': [self.chest_pain_type],
-                'RestingBP': [self.resting_bp],
-                'Cholesterol': [self.cholesterol],
-                'FastingBS': [self.fasting_bs],
-                'RestingECG': [self.resting_ecg],
-                'MaxHR': [self.max_hr],
-                'Oldpeak': [self.oldpeak],
-                'ExerciseAngina': [self.exercise_angina],
-                'ST_Slope': [self.st_slope]
+            data = {
+                'self_employed': [self.self_employed],
+                'education': [self.education],
+                'no_of_dependents': [self.no_of_dependents],
+                'income_annum': [self.income_annum],
+                'loan_amount': [self.loan_amount],
+                'loan_term': [self.loan_term],
+                'cibil_score': [self.cibil_score],
+                'residential_assets_value': [self.residential_assets_value],
+                'commercial_assets_value': [self.commercial_assets_value],
+                'luxury_assets_value': [self.luxury_assets_value],
+                'bank_asset_value': [self.bank_asset_value]
             }
-            # Convert the dictionary to a DataFrame
-            df = pd.DataFrame(custom_data_input_dict)
-            logging.info('Dataframe gathered successfully')
-            logging.info(f"DataFrame contents: {df}")  # Log the DataFrame contents
+
+            df = pd.DataFrame(data)
+
+            # Log DataFrame creation
+            logging.info('DataFrame created successfully')
+            logging.debug(f'DataFrame contents: {df}')  # Use debug for detailed output
             return df
         except Exception as e:
-            # Log any exceptions that occur during DataFrame creation
-            logging.info('Exception occurred in getting dataframe')
+            logging.error('Error occurred while creating DataFrame', exc_info=True)
             raise CustomException(e, sys)
