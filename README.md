@@ -58,7 +58,7 @@ The categorical variables **Sex**, **Chest Pain Type**, **Resting ECG**, **Exerc
 - [Deployment App](https://sureshbeekhani-loan-eligibility-prediction.hf.space)
 
 ## Screenshot of UI
-![API Prediction](./static/img/App_img1.PNG)
+![API Prediction](.static/img/app1.PNG)
 
 
 ## Project Approach
