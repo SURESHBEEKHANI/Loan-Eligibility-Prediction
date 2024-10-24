@@ -1,96 +1,97 @@
-# Loan-Eligibility-Prediction
+# Loan Eligibility Prediction
 
 ## Project Overview
 
-The **Heart Attack Prediction** project is a machine learning application designed to predict the risk of heart attack based on various input factors. The tool estimates the risk using medical data such as age, sex, blood pressure, cholesterol levels, and other cardiovascular metrics.
+The **Loan Eligibility Prediction** project is a machine learning application designed to assess the likelihood of loan approval based on various applicant factors. This tool estimates eligibility using data such as income, credit history, loan amount, and other relevant financial metrics.
 
 ## Dataset Information
 
-The dataset consists of the following features:
+The dataset used in this project consists of multiple features that provide insights into loan applicants. Below are the details of the dataset:
 
-- **Sex**: Gender of the patient (Male/Female)
-- **Chest Pain Type**: Type of chest pain experienced (ATA, NAP, ASY, TA)
-- **Resting ECG**: Results of resting electrocardiographic measurements (Normal, ST, LVH)
-- **Exercise Angina**: Whether the patient experiences angina during exercise (Yes/No)
-- **ST Slope**: Slope of the peak exercise ST segment (Up, Flat, Down)
-- **Age**: Age of the patient (in years)
-- **Resting Blood Pressure**: Blood pressure (in mm Hg) at rest
-- **Cholesterol**: Cholesterol level (in mg/dl)
-- **Fasting Blood Sugar**: Blood sugar level (in mg/dl) after fasting
-- **Max Heart Rate**: Maximum heart rate achieved
-- **Oldpeak**: ST depression induced by exercise relative to rest
+| Column Name                    | Description                                                |
+|--------------------------------|------------------------------------------------------------|
+| **no_of_dependents**           | Number of dependents the applicant has.                   |
+| **education**                  | Education level of the applicant (Graduate/Not Graduate). |
+| **self_employed**              | Employment status (Yes/No).                               |
+| **income_annum**               | Annual income of the applicant (in currency).             |
+| **loan_amount**                | Requested loan amount (in currency).                       |
+| **loan_term**                  | Duration of the loan (in months).                          |
+| **cibil_score**                | Credit score of the applicant.                             |
+| **residential_assets_value**    | Value of the applicant's residential assets.              |
+| **commercial_assets_value**    | Value of the applicant's commercial assets.               |
+| **luxury_assets_value**        | Value of the applicant's luxury assets.                   |
+| **bank_asset_value**           | Value of the applicant's bank assets.                     |
+| **loan_status**                | Indicator of loan approval (Approved/Rejected).           |
+
+### Sample Data
+
+Here’s a brief look at the dataset:
+
+| no_of_dependents | education      | self_employed | income_annum | loan_amount | loan_term | cibil_score | residential_assets_value | commercial_assets_value | luxury_assets_value | bank_asset_value | loan_status |
+|------------------|----------------|---------------|--------------|-------------|-----------|--------------|-------------------------|-----------------------|---------------------|------------------|-------------|
+| 0                | 1              | Graduate      | No           | 9600000     | 29900000  | 12           | 778                     | 2400000               | 17600000            | 22700000        | 8000000     | Approved    |
+| 1                | 2              | Not Graduate   | Yes          | 4100000     | 12200000  | 8            | 417                     | 2700000               | 2200000             | 8800000        | 3300000     | Rejected    |
+| 2                | 3              | Graduate      | No           | 9100000     | 29700000  | 20           | 506                     | 7100000               | 4500000             | 33300000       | 12800000    | Rejected    |
+| 3                | 4              | Graduate      | No           | 8200000     | 30700000  | 8            | 467                     | 18200000              | 3300000             | 23300000       | 7900000     | Rejected    |
+| 4                | 5              | Not Graduate   | Yes          | 9800000     | 24200000  | 20           | 382                     | 12400000              | 8200000             | 29400000       | 5000000     | Rejected    |
 
 **Target Variable**:
-- **`Risk of Heart Attack`**: A binary indicator of heart attack risk.
+- **`loan_status`**: A binary indicator of loan approval (1: Approved, 0: Rejected).
 
 ### Dataset Source
-- **data set**:[Access dataset](./notebook/data)
+- **Data Source**: [Access dataset](./notebook/data)
 
 ## Categorical Variables
 
-The categorical variables **Sex**, **Chest Pain Type**, **Resting ECG**, **Exercise Angina**, and **ST Slope** are essential for prediction.
+The categorical variables **education**, **self_employed**, and **loan_status** are essential for prediction.
 
-- **Sex**:
-  - Male
-  - Female
+- **Education**:
+  - Graduate
+  - Not Graduate
 
-- **Chest Pain Type**:
-  - ATA
-  - NAP
-  - ASY
-  - TA
-
-- **Resting ECG**:
-  - Normal
-  - ST
-  - LVH
-
-- **Exercise Angina**:
+- **Self Employed**:
   - Yes
   - No
 
-- **ST Slope**:
-  - Up
-  - Flat
-  - Down
+- **Loan Status**:
+  - Approved
+  - Rejected
 
 ## Deployment Link
 - [Deployment App](https://sureshbeekhani-loan-eligibility-prediction.hf.space)
 
 ## Screenshot of UI
-![API Prediction](.static/img/app1.PNG)
-
+![Loan Eligibility Prediction UI](./static/img/app1.PNG)
 
 ## Project Approach
 
 1. **Data Ingestion**:
-   - Read data from CSV.
-   - Split the data into training and testing sets, saving them as CSV files.
+   - Read data from CSV files.
+   - Split the dataset into training and testing sets, saving them as CSV files.
 
 2. **Data Transformation**:
-   - Create a ColumnTransformer pipeline.
+   - Create a `ColumnTransformer` pipeline for preprocessing.
    - **For Numeric Variables**:
-     - Apply SimpleImputer with median strategy.
-     - Perform Standard Scaling.
+     - Use `SimpleImputer` with median strategy for missing values.
+     - Apply standard scaling.
    - **For Categorical Variables**:
-     - Apply SimpleImputer with most frequent strategy.
-     - Perform ordinal encoding.
-     - Scale the data with Standard Scaler.
-   - Save the preprocessor as a pickle file.
+     - Use `SimpleImputer` with the most frequent strategy for missing values.
+     - Apply one-hot encoding for categorical variables.
+   - Save the preprocessor as a pickle file for later use.
 
 3. **Model Training**:
-   - Test various machine learning models, identifying the best performers.
-   - Conduct hyperparameter tuning on top models.
-   - Create a final ensemble model combining predictions from multiple algorithms.
-   - Save the final model as a pickle file.
+   - Experiment with various machine learning models to identify the best performers.
+   - Perform hyperparameter tuning to enhance model performance.
+   - Create an ensemble model that combines predictions from multiple algorithms.
+   - Save the final model as a pickle file for deployment.
 
 4. **Prediction Pipeline**:
-   - Convert input data into a DataFrame.
-   - Implement functions to load pickle files and predict final results.
+   - Convert input data into a DataFrame for prediction.
+   - Implement functions to load the pre-trained model and make predictions.
 
 5. **Flask App Creation**:
-   - Develop a Flask app with a user-friendly interface for predicting heart attack risk.
+   - Develop a Flask application with a user-friendly interface for loan eligibility predictions.
 
 ## Additional Resources
-- **Exploratory Data Analysis (EDA) Notebook**: [View EDA Notebook](./notebook/Heart%20Attack.ipynb)
-- **Model Training Notebook**: [View Model Training Notebook](./notebook/MODEL%20TRAINING.ipynb)
+- **Exploratory Data Analysis (EDA) Notebook**: [View EDA Notebook](./notebook/Loan%20Eligibility%20EDA.ipynb)
+- **Model Training Notebook**: [View Model Training Notebook](./notebook/Loan%20Eligibility%20Model%20Training.ipynb)
